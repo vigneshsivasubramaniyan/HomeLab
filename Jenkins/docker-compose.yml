@@ -1,0 +1,16 @@
+# docker-compose.jenkins.yml
+volumes:
+  jenkins_data:
+networks:
+  demo:
+services:
+  jenkins:
+    image: jenkins/jenkins:latest
+    container_name: jenkins
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home

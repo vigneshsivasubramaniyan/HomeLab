@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  homelab-dashboard:
+    image: nginx:alpine
+    container_name: homelab-dashboard
+    restart: always
+    ports:
+      - "9090:80" 
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./images:/usr/share/nginx/html/images

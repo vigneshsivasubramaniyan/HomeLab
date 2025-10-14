@@ -1,0 +1,15 @@
+# docker-compose.nextcloud.yml
+volumes:
+  nextcloud_data:
+networks:
+  demo:
+services:
+  nextcloud:
+    image: nextcloud
+    container_name: nextcloud
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - nextcloud_data:/var/www/html

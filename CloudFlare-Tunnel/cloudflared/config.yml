@@ -1,0 +1,8 @@
+tunnel: fe8d7510-3824-4666-a625-29ec070f2e29
+credentials-file: C:\Users\vigne\.cloudflared\fe8d7510-3824-4666-a625-29ec070f2e29.json
+
+ingress:
+  - hostname: "*.madrasmic.in"
+    service: http://localhost:80
+
+  - service: http_status:404

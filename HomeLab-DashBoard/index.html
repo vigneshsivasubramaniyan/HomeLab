@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MadrasMic Dashboard</title>
+<link rel="shortcut icon" href="images/madrasmic_dashboard_icon.png" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f6fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 15px 15px;
+    background: #2f3640;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  header h1 { font-size: 2rem; margin-bottom: 8px; }
+  header p { font-size: 1rem; color: #dcdde1; }
+
+  main.dashboard {
+    max-width: 1100px;
+    margin: auto auto 20px; /* push to bottom */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border-left: 4px solid #4cd137;
+  }
+
+  .card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+  .card img { width: 38px; margin-bottom: 10px; }
+  .card h2 { font-size: 1.1rem; margin-bottom: 3px; }
+  .card span { font-size: 0.8rem; color: #555; text-align: center; }
+
+  /* Accent colors */
+  .automation { border-left-color: #1e90ff; }
+  .media { border-left-color: #ff4757; }
+  .ai { border-left-color: #ffa502; }
+  .cloud { border-left-color: #2ed573; }
+  .docs { border-left-color: #3742fa; }
+  .docker { border-left-color: #00d2d3; }
+  .ci { border-left-color: #ff6b81; }
+
+  footer {
+    text-align: center;
+    padding: 12px;
+    background: #2f3640;
+    color: #dcdde1;
+    font-size: 0.85rem;
+    margin-top: auto; /* footer stays at bottom */
+  }
+
+  footer a { color: #4bcf2d; text-decoration: none; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.6rem; }
+    main.dashboard { gap: 12px; }
+    .card { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>MadrasMic Home Lab</h1>
+    <p>Your centralized self-hosted dashboard</p>
+  </header>
+
+  <main class="dashboard">
+    <a href="https://n8n.madrasmic.in" class="card automation">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/N8n-logo-new.svg" alt="n8n">
+      <h2>n8n</h2>
+      <span>Automation Workflows</span>
+    </a>
+
+    <a href="https://media.madrasmic.in" class="card media">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Media">
+      <h2>Media</h2>
+      <span>Media Server</span>
+    </a>
+
+    <a href="https://gpt.madrasmic.in" class="card ai">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/ChatGPT-Logo.svg" alt="ChatGPT">
+      <h2>ChatGPT</h2>
+      <span>Local AI Assistant</span>
+    </a>
+
+    <a href="https://drive.madrasmic.in" class="card cloud">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" alt="Nextcloud">
+      <h2>Nextcloud</h2>
+      <span>Private Cloud Storage</span>
+    </a>
+
+    <a href="https://wiki.madrasmic.in" class="card docs">
+      <img src="images/Wiki.svg" alt="Wiki.js">
+      <h2>Wiki.js</h2>
+      <span>Knowledge Base</span>
+    </a>
+
+    <a href="https://portainer.madrasmic.in" class="card docker">
+      <img src="images/portainer.svg" alt="Portainer">
+      <h2>Portainer</h2>
+      <span>Docker Management</span>
+    </a>
+
+    <a href="https://jenkins.madrasmic.in" class="card ci">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg" alt="Jenkins">
+      <h2>Jenkins</h2>
+      <span>CI/CD Pipeline</span>
+    </a>
+    
+    <a href="https://vscode.madrasmic.in" class="card ci">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" alt="VSCode">
+      <h2>VScode</h2>
+      <span>WebCoding</span>
+    </a>
+  </main>
+
+  <footer>
+    <p>For any queries or commands, contact: 
+      <a href="mailto:helpdesk@madrasmic.in">helpdesk@madrasmic.in</a>
+    </p>
+  </footer>
+</body>
+</html>
