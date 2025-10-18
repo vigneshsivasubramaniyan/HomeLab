@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  excalidraw:
+    image: excalidraw/excalidraw:latest
+    container_name: excalidraw
+    restart: unless-stopped
+    ports:
+      - "7080:80"
+    environment:
+      - VITE_APP_BACKEND_V2_GET_URL=http://localhost:7091
+      - VITE_APP_BACKEND_V2_POST_URL=http://localhost:7091
+      - VITE_APP_WS_SERVER_URL=ws://localhost:8091
+    depends_on:
+      - excalidraw-room
+
+  excalidraw-room:
+    image: excalidraw/excalidraw-room:latest
+    container_name: excalidraw-room
+    restart: unless-stopped
+    ports:
+      - "7091:80"   
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
