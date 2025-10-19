@@ -1,7 +1,0 @@
-tunnel:
-credentials-file: 
-ingress:
-  - hostname: "*.madrasmic.in"
-    service: http://localhost:80
-
-  - service: http_status:404
