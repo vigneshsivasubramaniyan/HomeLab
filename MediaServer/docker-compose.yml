@@ -23,9 +23,9 @@ services:
       - "C:/docker/jellyfin/server/config:/config"
       - "C:/docker/jellyfin/server/cache:/cache"
       - type: bind
-        source: "G:/Movies"
+        source: "H:/Movies"
         target: /media
       - type: bind
-        source: "H:/FamilyFunction"
+        source: "G:/FamilyFunction"
         target: /media2
         read_only: true

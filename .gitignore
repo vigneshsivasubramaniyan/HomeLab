@@ -1,0 +1,18 @@
+# backups
+*-bkp.*
+
+# docker temp / volumes
+**/data/
+**/volumes/
+
+# AI / models
+Local Ai/
+**/models/
+**/llm/
+
+# images (optional)
+*.png
+
+# system
+node_modules/
+.env

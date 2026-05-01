@@ -15,7 +15,7 @@ services:
       - DEFAULT_WORKSPACE=/config/workspace #optional
       - PWA_APPNAME=code-server #optional
     volumes:
-      - /path/to/code-server/config:/config
+      - /opt/code-server:/config
     ports:
       - 8444:8443
     restart: unless-stopped

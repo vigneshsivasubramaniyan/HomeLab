@@ -1,0 +1,95 @@
+version: "3.8"
+
+services:
+  # Your existing Jellyfin (keep as is)
+
+  # qBittorrent - Torrent client with web UI
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+      - WEBUI_PORT=8080
+    volumes:
+      - C:/docker/qbittorrent/config:/config
+      - H:/Downloads:/downloads  # Download to H: drive (same as Movies)
+    ports:
+      - 8090:8090  # Web UI
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - media-network
+
+  # Radarr - Movie automation
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - C:/docker/radarr/config:/config
+      - H:/Movies:/movies  # Your Jellyfin movies folder
+      - H:/Downloads:/downloads  # Same download location
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    networks:
+      - media-network
+
+  # Sonarr - TV Show automation
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - C:/docker/sonarr/config:/config
+      - H:/Movies/TV Shows:/tv  # Create TV Shows subfolder in H:/Movies
+      - H:/Downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    networks:
+      - media-network
+
+  # Prowlarr - Indexer manager
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - C:/docker/prowlarr/config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    networks:
+      - media-network
+
+  # Jellyseerr - Request management UI
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=info
+      - TZ=Asia/Kolkata
+    ports:
+      - 5055:5055
+    volumes:
+      - C:/docker/jellyseerr/config:/app/config
+    restart: unless-stopped
+    networks:
+      - media-network
+
+networks:
+  media-network:
+    driver: bridge

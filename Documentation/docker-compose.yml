@@ -1,0 +1,16 @@
+services:
+  wikijs:
+    image: requarks/wiki:2
+    container_name: wikijs
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - DB_TYPE=sqlite
+    volumes:
+      - wikijs_data:/wiki/content
+volumes:
+  wikijs_data:
+networks:
+  demo:

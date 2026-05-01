@@ -1,19 +1,63 @@
-# docker-compose.openwebui.yml
+version: '3.8'
+
 volumes:
   openwebui-data:
+  searxng-data:
+  searxng-redis:
+
 networks:
   demo:
+    driver: bridge
+  searxng-only:
+    driver: bridge
+
 services:
   open-webui:
-    image: dyrnq/open-webui
+    image: ghcr.io/open-webui/open-webui:v0.8.3
     container_name: open-webui
     networks: ['demo']
     ports:
-      - "3000:8080"
+      - "3005:8080"
     volumes:
       - openwebui-data:/app/backend/data
     environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434
-    depends_on:
-      - ollama
+      - OLLAMA_API_BASE_URL=http://ollama:11434  # Adjust if proxying via LiteLLM, e.g., http://litellm:4000
+    restart: unless-stopped
+
+  litellm:
+    image: docker.litellm.ai/berriai/litellm:main-stable
+    container_name: litellm
+    networks: ['demo']
+    ports:
+      - "4010:4000"  # Host:Container; change host port if needed (avoids conflicts)
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml:ro  # Mount your config.yaml here
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    restart: unless-stopped
+    # Example env for production (add to .env file or here):
+    environment:
+       - LITELLM_MASTER_KEY="sk-xhABrYDwQgOhkGh9"
+       - LITELLM_SALT_KEY="sk-z38vmIG26&@cXznJ"
+    #  - DATABASE_URL=postgresql://user:pass@host/db  # Optional for key mgmt/spend tracking
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "8090:8080"
+    volumes:
+      - searxng-data:/etc/searxng
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8090/
+    networks:
+      - searxng-only
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: searxng-redis
+    volumes:
+      - searxng-redis:/data
+    networks:
+      - searxng-only
     restart: unless-stopped
